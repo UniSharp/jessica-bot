@@ -2,6 +2,5 @@
 
 module.exports = {
     slackKey: '',
-    tulingKey: '',
-    tulingUser: ''
+    tulingKey: ''
 }

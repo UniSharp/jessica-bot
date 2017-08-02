@@ -8,8 +8,7 @@ var opencc = new OpenCC('s2t.json');
 var config = require('./config');
 var robot = new SlackRobot(config.slackKey);
 var tulingKey = config.tulingKey;
-var tulingUser = config.tulingUser;
-var tulingUri = 'http://www.tuling123.com/openapi/api?key=' + tulingKey + '&userid=' + tulingUser + '&info=';
+var tulingUri = 'http://www.tuling123.com/openapi/api?key=' + tulingKey + '&info=';
 
 // will post 'world' text as bot when receiving 'hello' message
 // in channel, group, or direct message
@@ -40,7 +39,7 @@ robot.listen(/.*/, function (req, res) {
         }
     }
 
-    axios.get(tulingUri + encodeURIComponent(msg))
+    axios.post(tulingUri + encodeURIComponent(msg))
         .then(function (response) {
             var converted = opencc.convertSync(response.data.text);
             res.text(converted).send();
