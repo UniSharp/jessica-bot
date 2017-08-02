@@ -1,0 +1,16 @@
+{
+  "name": "jessica-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Albert Chen <albert@unisharp.com> (http://unisharp.com)",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.16.0",
+    "slack-robot": "^3.0.4",
+    "opencc": "^1.0.5"
+  }
+}
