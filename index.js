@@ -36,7 +36,7 @@ robot.listen(/.*/, function (req, res) {
         axios.get(dictUri + encodeURIComponent(word))
         .then(function (response) {
             var dictResult = response.data.match(/<span\sclass="trans"[^<>]*>([\s\S]*?)<\/span>/g);
-            if (dictResult.length == 0) {
+            if (!dictResult) {
                 console.log('no word found on dictionary');
                 res.text('字典中找不到: ' + word + '這個字').send();
             } else {
