@@ -20,17 +20,11 @@ robot.listen(/.*/, function (req, res) {
     }
 
     var msg = req.message.value.text;
-
-    if (req.to && req.to.type != 'dm') {
-        if (msg.match(/=/) && req.message.value.mentioned != true) {
-            console.log("skip " + msg);
-            return; // Group chat 不處理帶有 = 的語句
-        }
-    }
     msg = msg.replace(/@?jessica:?/i, '').trim();
     console.log('got:"' + msg + '"');
 
-    if (req.message.value.mentioned != true) {
+    if (req.message.value.mentioned != true && req.to.type != 'dm') {
+        console.log('skipped');
         return;
     }
 
