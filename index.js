@@ -38,7 +38,7 @@ robot.listen(/.*/, function (req, res) {
             var dictResult = response.data.match(/<span\sclass="trans"[^<>]*>([\s\S]*?)<\/span>/g);
             if (!dictResult) {
                 console.log('no word found on dictionary');
-                res.text('字典中找不到: ' + word + '這個字').send();
+                res.text('字典中找不到: `' + word + '` 這個字').send();
             } else {
                 var dictResult = dictResult[0].replace(/<\/?[^>]+(>|$)/g, "").trim();
                 console.log(dictResult);
