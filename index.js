@@ -31,13 +31,7 @@ robot.listen(/.*/, function (req, res) {
     console.log('got:"' + msg + '"');
 
     if (req.message.value.mentioned != true) {
-        if (req.to.type != 'dm') {
-            // 2% 的機率亂入
-            if (Math.floor((Math.random() * 100) + 1) < 99) {
-                console.log("skip: " + msg);
-                return;
-            }
-        }
+        return;
     }
 
     axios.post(tulingUri + encodeURIComponent(msg))
