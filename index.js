@@ -8,7 +8,8 @@ var opencc = new OpenCC('s2t.json');
 var config = require('./config');
 var robot = new SlackRobot(config.slackKey);
 var tulingKey = config.tulingKey;
-var tulingUri = 'http://www.tuling123.com/openapi/api?key=' + tulingKey + '&info=';
+var tulingUser = config.tulingUser;
+var tulingUri = 'http://www.tuling123.com/openapi/api?key=' + tulingKey + '&userid=' + tulingUser + '&info=';
 
 // will post 'world' text as bot when receiving 'hello' message
 // in channel, group, or direct message
