@@ -4,7 +4,8 @@ var https = require('https');
 var SlackRobot = require('slack-robot');
 var axios = require('axios');
 var OpenCC = require('opencc');
-var opencc = new OpenCC('s2t.json');
+var openTW = new OpenCC('s2twp.json');
+var openCN = new OpenCC('tw2sp.json');
 var config = require('./config');
 var robot = new SlackRobot(config.slackKey);
 var tulingKey = config.tulingKey;
@@ -51,9 +52,9 @@ robot.listen(/.*/, function (req, res) {
         return;
     }
 
-    axios.post(tulingUri + encodeURIComponent(msg))
+    axios.post(tulingUri + encodeURIComponent(openCN.convertSync(msg)))
         .then(function (response) {
-            var converted = opencc.convertSync(response.data.text);
+            var converted = openTW.convertSync(response.data.text);
             res.text(converted).send();
             console.log(converted);
         })
