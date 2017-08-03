@@ -35,15 +35,20 @@ robot.listen(/.*/, function (req, res) {
 
         axios.get(dictUri + encodeURIComponent(word))
         .then(function (response) {
-            var dictResult = response.data.match(/<span\sclass="trans"[^<>]*>([\s\S]*?)<\/span>/g)[0];
-            var dictResult = dictResult.replace(/<\/?[^>]+(>|$)/g, "").trim();
-            console.log(dictResult);
-            res.text('查詢結果: ' + dictResult).send();
-            return;
+            var dictResult = response.data.match(/<span\sclass="trans"[^<>]*>([\s\S]*?)<\/span>/g);
+            if (dictResult.length == 0) {
+                console.log('no word found on dictionary');
+                res.text('字典中找不到: ' + word + '這個字').send();
+            } else {
+                var dictResult = dictResult[0].replace(/<\/?[^>]+(>|$)/g, "").trim();
+                console.log(dictResult);
+                res.text('查詢結果: ' + dictResult).send();
+            }
         })
         .catch(function (error) {
             console.log(error);
         });
+        return;
     }
 
     axios.post(tulingUri + encodeURIComponent(msg))
