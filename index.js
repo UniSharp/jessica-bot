@@ -33,6 +33,7 @@ robot.listen(/.*/, function (req, res) {
 
     var dictMatch = msg.match(/^字典(.*)/);
     var exchangeMatch = msg.match(/^交換禮物(.*)/);
+    var drawMatch = msg.match(/^搖搖籤筒(.*)/);
     if (dictMatch) {
         var word = dictMatch[1].trim();
 
@@ -64,6 +65,12 @@ robot.listen(/.*/, function (req, res) {
           // console.log(value + ': ' + result)
           res.text('你的小天使是 => `' + result + '`', '@' + value).send();
         })
+        return;
+    } else if (drawMatch) {
+        var result = _.sample(config.members);
+
+        res.text('抽籤結果: `' + result + '`').send();
+        return;
     }
 
     axios.post(tulingUri + encodeURIComponent(openCN.convertSync(msg)))
