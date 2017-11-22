@@ -11,6 +11,7 @@
   "dependencies": {
     "axios": "^0.16.0",
     "slack-robot": "^3.0.4",
-    "opencc": "^1.0.5"
+    "opencc": "^1.0.5",
+    "lodash": "^4.17.4"
   }
 }

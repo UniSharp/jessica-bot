@@ -6,6 +6,7 @@ var axios = require('axios');
 var OpenCC = require('opencc');
 var openTW = new OpenCC('s2twp.json');
 var openCN = new OpenCC('tw2sp.json');
+var _ = require('lodash');
 var config = require('./config');
 var robot = new SlackRobot(config.slackKey);
 var tulingKey = config.tulingKey;
@@ -31,6 +32,7 @@ robot.listen(/.*/, function (req, res) {
     }
 
     var dictMatch = msg.match(/^字典(.*)/);
+    var exchangeMatch = msg.match(/^交換禮物(.*)/);
     if (dictMatch) {
         var word = dictMatch[1].trim();
 
@@ -50,6 +52,18 @@ robot.listen(/.*/, function (req, res) {
             console.log(error);
         });
         return;
+    } else if (exchangeMatch) {
+        var members = config.members;
+        var list =  _.clone(members);
+        _.forEach(members, function(value, key) {
+          let draw = list.filter(function(x) {
+            return x !== value;
+          });
+          var result = _.sample(draw);
+          _.pull(list, result);
+          // console.log(value + ': ' + result)
+          res.text('你的小天使是 => `' + result + '`', '@' + value).send();
+        })
     }
 
     axios.post(tulingUri + encodeURIComponent(openCN.convertSync(msg)))
