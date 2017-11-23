@@ -33,7 +33,7 @@ robot.listen(/.*/, function (req, res) {
 
     var dictMatch = msg.match(/^字典(.*)/);
     var exchangeMatch = msg.match(/^交換禮物(.*)/);
-    var drawMatch = msg.match(/^搖搖籤筒(.*)/);
+    var drawMatch = msg.match(/^籤筒(.*)/);
     if (dictMatch) {
         var word = dictMatch[1].trim();
 
@@ -63,7 +63,7 @@ robot.listen(/.*/, function (req, res) {
           var result = _.sample(draw);
           _.pull(list, result);
           // console.log(value + ': ' + result)
-          res.text('你的小天使是 => `' + result + '`', '@' + value).send();
+          res.text('你的小主人是 => `' + result + '`', '@' + value).send();
         })
         return;
     } else if (drawMatch) {
